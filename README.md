@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Altru 🏌️‍♂️❤️
 
-## Getting Started
+**Improve Your Game. Change a Life.**
 
-First, run the development server:
+Altru is a modern golf performance platform where every score you enter contributes to a cause you care about. By tracking your latest 5 Stableford scores, you earn automatic entries into monthly prize draws while supporting global charities.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Technical Stack
+
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS + Framer Motion
+- **Authentication:** Supabase Auth (SSR Pattern)
+- **Database:** Supabase (PostgreSQL)
+- **Icons:** Lucide React
+- **Payments:** Stripe (Simulation/Redirect Ready)
+
+## ✨ Core Features
+
+- **Charity Explorer:** Select from a curated list of non-profits to receive 10% of your platform subscription.
+- **Performance Tracker:** Log your latest 5 Stableford scores via a clean, mobile-first interface.
+- **Prize Draws:** View upcoming jackpots and historical winning numbers.
+- **Admin Dashboard:** Simulate prize draws based on real user performance data and publish official results.
+- **Automated Impact:** Track your lifetime charitable contribution directly from your personal dashboard.
+
+---
+
+## 🔑 Test Credentials
+
+For evaluation purposes, you can use the following accounts to access the platform:
+
+### Standard User
+- **Email:** `paul@test.com`
+- **Password:** `paul123`
+
+### Administrator
+- **Email:** `admin@test.com`
+- **Password:** `admin123`
+- *Note: Admin accounts have access to the `/admin` dashboard for draw simulations.*
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Prerequisites
+- Node.js (v20+)
+- A Supabase Project
+
+### 2. Environment Setup
+Create a `.env.local` file in the `/web` directory:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+STRIPE_SECRET_KEY=your_stripe_key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Installation & Run
+```bash
+npm install
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🗄️ Database Seeding
 
-## Learn More
+To populate the database with charities and historical draw data, run the scripts provided in the **`SEEDING.md`** file (located in the project root) within the Supabase SQL Editor.
 
-To learn more about Next.js, take a look at the following resources:
+### Admin Access
+To access the `/admin` dashboard:
+1. Sign up as a regular user.
+2. Manually set your `role` to `'admin'` in the `profiles` table via the Supabase SQL Editor.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🏛️ Project Architecture
 
-## Deploy on Vercel
+- **`/src/app/charities`**: Server-side rendered directory of partner charities.
+- **`/src/app/dashboard`**: Protected user area for score logging and impact tracking.
+- **`/src/app/admin`**: Privileged control center for draw simulations.
+- **`/src/app/actions`**: Next.js Server Actions for secure database mutations.
+- **`/src/lib/supabase`**: Shared Supabase client configuration for Server, Client, and Middleware contexts.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Note on Stripe Webhooks
+For this assessment, subscription status is handled via the "Success Redirect" pattern. In a production environment, Stripe Webhooks (`invoice.paid`, `customer.subscription.deleted`) would be implemented to handle asynchronous events such as renewals, card failures, and cancellations.
