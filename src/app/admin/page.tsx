@@ -200,9 +200,10 @@ export default function AdminDashboard() {
                 <h2 className="text-2xl font-black text-white flex items-center">
                   <Heart className="w-6 h-6 mr-3 text-red-500" /> Charity Partners
                 </h2>
-                <Button onClick={() => setIsAddingCharity(!isAddingCharity)} variant={isAddingCharity ? 'outline' : 'default'} className="rounded-xl">
+                <Button onClick={() => setIsAddingCharity(!isAddingCharity)} variant={isAddingCharity ? 'outline' : 'primary'} className="rounded-xl">
                   {isAddingCharity ? 'Cancel' : 'Add New Partner'}
                 </Button>
+
               </div>
 
               {isAddingCharity && (

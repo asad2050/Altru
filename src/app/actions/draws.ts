@@ -9,7 +9,7 @@ export async function runDrawSimulation() {
   const supabase = createServerClient(cookieStore);
 
   // 1. Generate 5 random numbers (1-45)
-  const winningNumbers = [];
+  const winningNumbers: number[] = [];
   while (winningNumbers.length < 5) {
     const num = Math.floor(Math.random() * 45) + 1;
     if (!winningNumbers.includes(num)) {
@@ -23,11 +23,11 @@ export async function runDrawSimulation() {
     .select('user_id')
     .eq('status', 'active');
 
-  if (!subscribers) return { winningNumbers, winnersCount: 0 };
+  if (!subscribers) return { winningNumbers, matches: { 3: 0, 4: 0, 5: 0 }, totalWinners: 0 };
 
   // 3. Match each user's latest 5 scores with winning numbers
   let matches = { 3: 0, 4: 0, 5: 0 };
-  const winners = [];
+  const winners: any[] = [];
 
   for (const sub of subscribers) {
     const { data: scores } = await supabase
